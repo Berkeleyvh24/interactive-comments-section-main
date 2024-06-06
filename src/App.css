@@ -1,0 +1,16 @@
+body{
+  background-color: hsl(228, 33%, 97%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  width: 720px;
+  height: 100vh;
+  padding: 10px;
+}
