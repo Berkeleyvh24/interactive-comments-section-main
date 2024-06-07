@@ -46,13 +46,17 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
     const fetchCommentByID = (commentId: number, comments: Comment[]):Comment | undefined => {
         for (const comment of comments) {
             if (comment.id === commentId) {
+                console.log('aaaa')
               return comment;
             }
 
             if (comment.replies === undefined){
-                return undefined;
+                console.log('bbb')
+                continue
             }
             if (comment.replies.length > 0) {
+                console.log('cccc')
+
               const foundReply = fetchCommentByID(commentId, comment.replies);
               if (foundReply) {
                 return foundReply;
