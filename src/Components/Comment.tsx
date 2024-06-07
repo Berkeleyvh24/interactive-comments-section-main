@@ -11,8 +11,19 @@ interface CommentComponentInterface {
 export default function CommentComponent({
   comment,
 }: CommentComponentInterface) {
+    const {handleReplyCommentSubmit} = useContext(CommentsContext)
   const [count, setCount] = useState(comment.score);
   const [showReply, setShowReply] = useState(false);
+
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleButtonClick = () => {
+    handleReplyCommentSubmit!(comment, inputValue, comment.user);
+  };
 
   const incrementScore = (): void => {
     setCount((prevCount) => {
@@ -25,7 +36,6 @@ export default function CommentComponent({
     });
   };
   const tappedReply = (): void => {
-    console.log("tapped reply");
     if(showReply){
         setShowReply(false);
         return;
@@ -74,7 +84,20 @@ export default function CommentComponent({
         </div>
       </div>
       {showReply ? (<div className="create-reply-container">
-        
+      <input 
+        type="text" 
+        value={inputValue} 
+        style={{
+            padding: '10px',
+            fontSize: '16px',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            marginRight: '10px'
+          }}
+        onChange={handleInputChange} 
+        placeholder="Enter some text"
+      />
+      <button onClick={handleButtonClick}>Submit</button>
       </div>) : (<div></div>)}
     </div>
   );

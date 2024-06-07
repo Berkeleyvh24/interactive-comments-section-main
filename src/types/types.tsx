@@ -1,12 +1,11 @@
 export interface Comment {
     id: number;
+    user: User;
     content: string;
     createdAt: string;
     score: number;
-    user: User;
     replies?: Comment[];
     replyingTo?: string;
-      
 }
 
 export interface User {
