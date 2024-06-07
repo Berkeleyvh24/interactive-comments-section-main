@@ -5,12 +5,12 @@ import { Comment } from "../types/types.tsx";
 import "./addComment.css";
 
 interface AddCommentComponentType {
-  comment: Comment;
-  setIsHidden: (isHidden: boolean) => void;
+  comment: Comment | undefined;
+  setIsHidden?: (isHidden: boolean) => void;
 }
 
 const AddComment = ({ comment, setIsHidden}: AddCommentComponentType) => {
-  const { handleReplyCommentSubmit, currentUser} = useContext(CommentsContext);
+  const { handleCommentAddition, handleReplyCommentSubmit, currentUser} = useContext(CommentsContext);
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,9 +18,18 @@ const AddComment = ({ comment, setIsHidden}: AddCommentComponentType) => {
   };
 
   const handleButtonClick = () => {
-    handleReplyCommentSubmit!(comment, inputValue, currentUser);
-    setIsHidden(true);
-    setInputValue("");
+    console.log(comment)
+    if(comment !== undefined){
+      console.log('----')
+      handleReplyCommentSubmit!(comment, inputValue, currentUser);
+      setIsHidden!(true);
+      setInputValue("");
+    }else{
+      console.log('=====')
+      handleCommentAddition!(inputValue)
+      setInputValue("");
+    }
+    
   };
 
   return (

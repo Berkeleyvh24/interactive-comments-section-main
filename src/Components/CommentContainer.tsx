@@ -4,7 +4,7 @@ import CommentComponent from "./Comment.tsx";
 import { Comment } from "../types/types";
 
 interface CommentContainerInterface {
-  comment?: Comment;
+  comment: Comment;
   key: number;
 }
 
@@ -14,8 +14,7 @@ export default function CommentsContainer({
   return (
     <div className="main-container">
       <div className="comment-reply-container">
-        <CommentComponent comment={comment!} />
-
+        <CommentComponent comment={comment} />
         {/* {comment!.replies !== undefined && comment!.replies.length > 0 && (
           <div>
             {comment?.replies.map((reply, index) => (

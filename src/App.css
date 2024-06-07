@@ -6,11 +6,3 @@ body{
   margin: 0;
 }
 
-.main-container{
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  width: 720px;
-  height: 100vh;
-  padding: 10px;
-}

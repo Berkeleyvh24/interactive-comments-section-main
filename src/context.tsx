@@ -37,7 +37,7 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
           content: comment,
           createdAt: new Date().toLocaleDateString(),
           score: 0,
-          replyingTo: currentReplyingToComment.user.username,
+          replyingTo: user.username,
           user,
           replies: []
         };
@@ -94,7 +94,6 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
             }
             
             setIncrementCommentId((prevIncrementCommentId)=> prevIncrementCommentId +1)
-            console.log(prevData,'+++')
             return prevData
         })
         
