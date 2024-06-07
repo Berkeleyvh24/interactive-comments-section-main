@@ -1,13 +1,12 @@
 import './App.css'
-import CommentsContainer from './Components/CommentContainer.tsx'
+import CommentList from './Components/CommentList.tsx'
 import { CommentContextProvider } from './context.tsx'
 
 function App() {
-
   return (
     <>      
       <CommentContextProvider>
-        <CommentsContainer/>
+        <CommentList/>
       </CommentContextProvider>
     </>
   )

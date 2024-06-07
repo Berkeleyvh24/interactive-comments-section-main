@@ -1,15 +1,14 @@
 .main-container{
-    display: flex;
-    flex-direction: column;
-    top: 0;
+    display:flex;
+    flex-direction:column;
+    height: auto !important;
     width: 720px;
-    height: 100vh;
-    padding: 10px;
 }
 
 .comment-reply-container{
     display: flex;  
     flex-direction: column;
+    width: 100%;
 }
 
 .inner-reply-container{
@@ -21,8 +20,8 @@
     display: flex;
     height: auto;
     background-color: lightgray;
-    padding: 0px 1px; 
-    margin: 0px 50px;
+    padding: 0px 1px 0px 1px;
+    margin: 0px 25px;
 }
 
 

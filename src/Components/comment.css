@@ -18,7 +18,8 @@
 .comment-container{
     background-color: white;
     display: flex;
-    margin-bottom: 15px;
+    margin: 15px 0px;
+    border-radius: 7px;
 }
 
 
@@ -100,10 +101,4 @@
     line-height: 1.5em;
     overflow: hidden;
 
-}
-
-.create-reply-container {
-    height: 100px;
-    width: 100%;
-    background-color:red
 }

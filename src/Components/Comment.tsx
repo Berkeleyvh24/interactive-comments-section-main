@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./comment.css";
 import { Comment } from "../types/types";
-import { CommentsContext } from "../context.tsx";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import AddComment from "./addComment.tsx";
 
 interface CommentComponentInterface {
   comment: Comment;
@@ -11,19 +11,9 @@ interface CommentComponentInterface {
 export default function CommentComponent({
   comment,
 }: CommentComponentInterface) {
-    const {handleReplyCommentSubmit} = useContext(CommentsContext)
   const [count, setCount] = useState(comment.score);
-  const [showReply, setShowReply] = useState(false);
+  const [isHidden, setIsHidden] = useState<boolean>(true);
 
-  const [inputValue, setInputValue] = useState<string>('');
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleButtonClick = () => {
-    handleReplyCommentSubmit!(comment, inputValue, comment.user);
-  };
 
   const incrementScore = (): void => {
     setCount((prevCount) => {
@@ -34,13 +24,6 @@ export default function CommentComponent({
     setCount((prevCount) => {
       return prevCount - 1;
     });
-  };
-  const tappedReply = (): void => {
-    if(showReply){
-        setShowReply(false);
-        return;
-    }
-    setShowReply(true);
   };
 
   return (
@@ -70,7 +53,7 @@ export default function CommentComponent({
               <span>{comment.user.username}</span>
               <span>{comment.createdAt}</span>
             </div>
-            <a className="inner-comment-tags-reply" onClick={tappedReply}>
+            <a className="inner-comment-tags-reply" onClick={() => setIsHidden(false)}>
               <img src={"./images/icon-reply.svg"} alt="report" />
               <p>Reply</p>
             </a>
@@ -83,22 +66,21 @@ export default function CommentComponent({
           </div>
         </div>
       </div>
-      {showReply ? (<div className="create-reply-container">
-      <input 
-        type="text" 
-        value={inputValue} 
-        style={{
-            padding: '10px',
-            fontSize: '16px',
-            borderRadius: '4px',
-            border: '1px solid #ccc',
-            marginRight: '10px'
-          }}
-        onChange={handleInputChange} 
-        placeholder="Enter some text"
-      />
-      <button onClick={handleButtonClick}>Submit</button>
-      </div>) : (<div></div>)}
+      {!isHidden && <AddComment comment={comment} setIsHidden={setIsHidden}/>}
+      {comment!.replies !== undefined && comment!.replies.length > 0 && (
+      <div>
+            {comment.replies?.map((reply, index) => (
+              <div>
+                <div className="inner-reply-container">
+                  <div className="inner-reply-bar"></div>
+                  <div className="inner-reply-comment-section">
+                    <CommentComponent key={index} comment={reply} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+      )}
     </div>
   );
 }

@@ -6,13 +6,13 @@ import dataJson from "./data.json"
 interface DefaultContext{
     currentUser: User;
     comments: Comment[];
-    replyDisplay: boolean;
 }
 
 interface FunctionalContext{
     setReplyDisplay?: Dispatch<SetStateAction<boolean>>;
     handleReplyCommentSubmit?: (replyingTo: Comment, comment: string, user: User) => void;
     changeScore?: (newValue: number) => void;
+    handleCommentAddition?: (newComment: string) => void 
 }
 
 interface CommentsContextProps{
@@ -22,57 +22,89 @@ interface CommentsContextProps{
 export const CommentsContext = createContext<DefaultContext & FunctionalContext>({
     currentUser: dataJson.currentUser,
     comments: dataJson.comments,
-    replyDisplay: false,
 })
 
 
 export function CommentContextProvider({ children }: CommentsContextProps): React.JSX.Element {
     const [data, setData] = useState<CommentsData>(dataJson);
-    const [replyDisplay, setReplyDisplay] = useState<boolean>(false)
     const [incrementCommentId, setIncrementCommentId] = useState<number>(5)
     
     const currentUser = data.currentUser
 
-    const createNewComment = (currentReplyingToComment: Comment, comment: string, user: User): Comment => {
+    const createNewReply = (currentReplyingToComment: Comment, comment: string, user: User): Comment => {
         return {
           id: incrementCommentId, // Ensure this is a unique ID
           content: comment,
-          createdAt: "just now",
+          createdAt: new Date().toLocaleDateString(),
           score: 0,
-          replyingTo: user.username,
-          user: {
-            image: {
-              png: currentUser.image.png,
-              webp: currentUser.image.webp
-            },
-            username: currentUser.username
-          },
+          replyingTo: currentReplyingToComment.user.username,
+          user,
           replies: []
         };
       };
 
-    const fetchCommentByID = (commentId: number) =>{
-        return data.comments.find(comment => comment.id === commentId) ||
-        data.comments.flatMap(comment => comment.replies).find(reply => reply?.id === commentId);
+    const fetchCommentByID = (commentId: number, comments: Comment[]):Comment | undefined => {
+        for (const comment of comments) {
+            if (comment.id === commentId) {
+              return comment;
+            }
+
+            if (comment.replies === undefined){
+                return undefined;
+            }
+            if (comment.replies.length > 0) {
+              const foundReply = fetchCommentByID(commentId, comment.replies);
+              if (foundReply) {
+                return foundReply;
+              }
+            }
+          }
+          return undefined;
     }
 
-    const handleReplyCommentSubmit = (replyingTo: Comment, comment: string, user: User) => {
+    const handleCommentAddition = (newComment: string): void => {
+        setData((prevData) => ({
+            ...prevData,
+            comments: [
+                ...prevData.comments,
+                {
+                    id: incrementCommentId,
+                    user: prevData.currentUser,
+                    content: newComment,
+                    createdAt: new Date().toLocaleDateString(),
+                    score: 0,
+                },
+            ],
+        }));
+        setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
+    };
+
+    const  handleReplyCommentSubmit = (replyingTo: Comment, comment: string, user: User) => {
         setData((prevData) => {
-            const currentReplyingToComment = fetchCommentByID(replyingTo.id)
+            console.log(prevData,'---')
+            const currentReplyingToComment = fetchCommentByID(replyingTo.id, prevData.comments)
+            console.log(replyingTo.id, '====')
+            console.log(currentReplyingToComment, '][]][[]')
             if (!currentReplyingToComment) {
                 return prevData
             }
-            const newReply = createNewComment(currentReplyingToComment, comment, user)
-            currentReplyingToComment.replies?.push(newReply)
-            console.log(incrementCommentId)
+            const newReply = createNewReply(currentReplyingToComment, comment, user)
+            if(currentReplyingToComment.replies !== undefined){
+                currentReplyingToComment.replies.push(newReply)
+            }else{
+                currentReplyingToComment.replies = []
+                currentReplyingToComment.replies.push(newReply)
+            }
+            
             setIncrementCommentId((prevIncrementCommentId)=> prevIncrementCommentId +1)
-            console.log(incrementCommentId)
+            console.log(prevData,'+++')
             return prevData
         })
+        
     }
     
     return (
-        <CommentsContext.Provider value={{currentUser,comments:data.comments,replyDisplay,setReplyDisplay,handleReplyCommentSubmit}}>
+        <CommentsContext.Provider value={{currentUser,comments:data.comments,handleCommentAddition,handleReplyCommentSubmit}}>
             {children}
         </CommentsContext.Provider>
     );

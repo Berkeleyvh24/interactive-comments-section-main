@@ -1,0 +1,40 @@
+.hidden {
+display: none;
+}
+
+.create-reply-container {
+    height: 100px;
+    width: 100%;
+    background-color:white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img{
+        margin-left: 30px;
+        width: 35px;
+        height: 35px;
+    }
+
+    button{
+        cursor: pointer;
+        padding: 10px;
+        margin-right: 30px;
+    }
+}
+
+.create-reply-input{
+    width: 80%;
+    height: 60%; /* Adjust height as needed */
+    padding: 4px; /* Adjust padding to ensure text is at the top */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: none; /* Prevent resizing if desired */
+    vertical-align: top;
+    margin: 0px 20px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.create-input-container{
+    display: flex;
+}
