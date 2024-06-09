@@ -136,6 +136,7 @@
 .inner-edit-update-container{
     display: flex;
     justify-content: flex-end;
+    margin-bottom: -20px;
 }
 
 .inner-edit-update-button{

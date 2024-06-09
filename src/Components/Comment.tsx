@@ -123,10 +123,11 @@ export default function CommentComponent({
             <div className="inner-edit">
               <div className="inner-comment-text">
                 <textarea
-                  value={inputValue}
-                  className="create-edit-input"
-                  onChange={handleInputChange}
-                  placeholder="Enter some text"
+                rows={5}
+                value={inputValue}
+                className="create-edit-input"
+                onChange={handleInputChange}
+                placeholder="Enter some text"
                 />
               </div>
               <div className="inner-edit-update-container">
