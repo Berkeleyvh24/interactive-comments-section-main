@@ -20,6 +20,7 @@
     display: flex;
     margin: 15px 0px;
     border-radius: 7px;
+    /* width: 100%; */
 }
 
 
@@ -40,36 +41,26 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding-bottom: 15px;
 }
 
 .inner-comment-tags{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 20px 20px 10px 0px;
     gap: 10px;
+
     img{
-        width: 50px;
+        width: 40px;
     }
+
     .inner-comment-tags-text{
         display: flex;
         flex-direction: row;
         margin-left: 10px;
         span{
-            margin: 0px 15px
-        }
-    }
-
-    .inner-comment-tags-reply{
-        display: flex;
-        gap: 5px;
-        position: relative;
-        align-items: center;
-        margin-left: auto;
-        color: var(--moderate-blue);
-        font-weight: 500;
-        img{
-            width: 15px;
-            height: 15px;
+            margin: 0px 5px;
         }
     }
 
@@ -91,14 +82,89 @@
     } */
 }
 
+.inner-comment-tags .inner-comment-tags-reply{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-left: auto;
+    color: var(--moderate-blue);
+    font-weight: 500;
+    img{
+        width: 15px;
+        height: 15px;
+    }
+}
+
+
+
 .inner-comment-text{
-    padding: 20px;
-    padding-top: 0;
-    padding-left: 0;
+    height: auto;
     color: var(--grayish-blue);
     font-weight: 400;
     font-size: 16px;
     line-height: 1.5em;
     overflow: hidden;
+}
 
+.inner-comment-edit-delete{
+    display: flex;
+    margin-left: 10px;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.inner-edit{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.create-edit-input{
+    overflow:auto;
+    width: 90%;
+    height: 70%; /* Adjust height as needed */
+    padding: 4px; /* Adjust padding to ensure text is at the top */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: none; /* Prevent resizing if desired */
+    vertical-align: top;
+    margin: 0px 20px;
+    border-radius: 5px;
+    outline: none;
+    resize: none
+}
+
+.inner-edit-update-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inner-edit-update-button{
+    margin-right: 42px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    height: 35px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--moderate-blue);
+    color: white
+
+}
+
+.inner-reply-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.inner-reply-bar{
+    height: auto;
+    background-color: lightgray;
+    padding: 0px 1px 0px 1px;
+    margin: 0px 25px;
+    /* width: 40px; */
+}
+
+
+.inner-reply-comment-section{
+    flex-grow: 1;
 }

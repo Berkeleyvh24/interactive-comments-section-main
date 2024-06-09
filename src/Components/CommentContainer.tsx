@@ -2,6 +2,8 @@ import * as React from "react";
 import "./commentContainer.css";
 import CommentComponent from "./Comment.tsx";
 import { Comment } from "../types/types";
+import { CommentsContext } from "../context.tsx";
+import { useContext } from "react";
 
 interface CommentContainerInterface {
   comment: Comment;
@@ -11,10 +13,12 @@ interface CommentContainerInterface {
 export default function CommentsContainer({
   comment,
 }: CommentContainerInterface) {
+  const { currentUser } = useContext(CommentsContext);
+
   return (
     <div className="main-container">
       <div className="comment-reply-container">
-        <CommentComponent comment={comment} />
+        <CommentComponent activeUserName={currentUser.username} comment={comment} />
         {/* {comment!.replies !== undefined && comment!.replies.length > 0 && (
           <div>
             {comment?.replies.map((reply, index) => (

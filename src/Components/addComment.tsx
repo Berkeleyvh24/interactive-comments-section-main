@@ -12,20 +12,16 @@ interface AddCommentComponentType {
 const AddComment = ({ comment, setIsHidden}: AddCommentComponentType) => {
   const { handleCommentAddition, handleReplyCommentSubmit, currentUser} = useContext(CommentsContext);
   const [inputValue, setInputValue] = useState<string>("");
-
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleButtonClick = () => {
-    console.log(comment)
     if(comment !== undefined){
-      console.log('----')
       handleReplyCommentSubmit!(comment, inputValue, currentUser);
       setIsHidden!(true);
       setInputValue("");
     }else{
-      console.log('=====')
       handleCommentAddition!(inputValue)
       setInputValue("");
     }

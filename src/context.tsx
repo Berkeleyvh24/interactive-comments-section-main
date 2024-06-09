@@ -12,6 +12,7 @@ interface FunctionalContext{
     setReplyDisplay?: Dispatch<SetStateAction<boolean>>;
     handleReplyCommentSubmit?: (replyingTo: Comment, comment: string, user: User) => void;
     changeScore?: (newValue: number) => void;
+    handleEditComment?: (commentId: number, newComment: string) => void;
     handleCommentAddition?: (newComment: string) => void 
 }
 
@@ -62,6 +63,22 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
           return undefined;
     }
 
+    const handleEditComment = (commentId: number, newComment: string): boolean =>{
+        setData((prevData) => {
+            console.log(commentId)
+            const currentReplyingToComment = fetchCommentByID(commentId, prevData.comments)
+            let editedComment;
+            const initialLen = currentReplyingToComment?.content.length
+            if(newComment.startsWith(currentReplyingToComment!.content)){
+                editedComment = currentReplyingToComment!.content + newComment.substring(initialLen!)
+            }
+            currentReplyingToComment!.content = editedComment!
+
+            return prevData
+        })
+        return false
+    }
+
     const handleCommentAddition = (newComment: string): void => {
         setData((prevData) => ({
             ...prevData,
@@ -78,6 +95,8 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         }));
         setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
     };
+
+
 
     const  handleReplyCommentSubmit = (replyingTo: Comment, comment: string, user: User) => {
         setData((prevData) => {
@@ -100,7 +119,8 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
     }
     
     return (
-        <CommentsContext.Provider value={{currentUser,comments:data.comments,handleCommentAddition,handleReplyCommentSubmit}}>
+        <CommentsContext.Provider value={{currentUser,comments:data.comments,
+        handleCommentAddition,handleReplyCommentSubmit,handleEditComment}}>
             {children}
         </CommentsContext.Provider>
     );

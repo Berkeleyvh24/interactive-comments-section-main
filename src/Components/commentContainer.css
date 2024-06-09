@@ -8,23 +8,6 @@
 .comment-reply-container{
     display: flex;  
     flex-direction: column;
-    width: 100%;
+    width: auto;
 }
 
-.inner-reply-container{
-    display: flex;
-    flex-direction: row;
-}
-
-.inner-reply-bar{
-    display: flex;
-    height: auto;
-    background-color: lightgray;
-    padding: 0px 1px 0px 1px;
-    margin: 0px 25px;
-}
-
-
-.inner-reply-comment-section{
-    flex: 1;
-}
