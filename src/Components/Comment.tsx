@@ -14,7 +14,7 @@ export default function CommentComponent({
   comment,
   activeUserName,
 }: CommentComponentInterface) {
-    const {handleEditComment} = useContext(CommentsContext)
+  const { handleEditComment, setCommentToDelete, setModalDisplayOpened} = useContext(CommentsContext);
   const [count, setCount] = useState(comment.score);
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [editText, setEditText] = useState<boolean>(false);
@@ -52,10 +52,15 @@ export default function CommentComponent({
     });
   };
 
-    function handleEditUpdate(): void {
-        const returnBoolean = handleEditComment!(comment.id, inputValue);
-        setEditText(returnBoolean!);
-    }
+  function handleEditUpdate(): void {
+    const returnBoolean = handleEditComment!(comment.id, inputValue);
+    setEditText(returnBoolean!);
+  }
+
+  const deleteCommentWithId = (): void => {
+    setCommentToDelete!(comment.id)
+    setModalDisplayOpened!(true)
+  }
 
   return (
     <div>
@@ -93,7 +98,7 @@ export default function CommentComponent({
               <div className="inner-comment-edit-delete">
                 <a
                   className="inner-comment-tags-reply"
-                  onClick={replyButtonChange}
+                  onClick={deleteCommentWithId}
                 >
                   <img src={"./images/icon-delete.svg"} alt="report" />
                   <p>Delete</p>
@@ -123,15 +128,20 @@ export default function CommentComponent({
             <div className="inner-edit">
               <div className="inner-comment-text">
                 <textarea
-                rows={5}
-                value={inputValue}
-                className="create-edit-input"
-                onChange={handleInputChange}
-                placeholder="Enter some text"
+                  rows={5}
+                  value={inputValue}
+                  className="create-edit-input"
+                  onChange={handleInputChange}
+                  placeholder="Enter some text"
                 />
               </div>
               <div className="inner-edit-update-container">
-                <button className="inner-edit-update-button" onClick={handleEditUpdate}>Update</button>
+                <button
+                  className="inner-edit-update-button"
+                  onClick={handleEditUpdate}
+                >
+                  Update
+                </button>
               </div>
             </div>
           ) : (

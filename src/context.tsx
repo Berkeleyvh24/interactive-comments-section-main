@@ -6,7 +6,9 @@ import dataJson from "./data.json"
 interface DefaultContext{
     currentUser: User;
     comments: Comment[];
-    commentToDelete: number
+    commentToDelete: number;
+    modalDisplayOpened: boolean;
+
 }
 
 interface FunctionalContext{
@@ -15,6 +17,7 @@ interface FunctionalContext{
     handleCommentAddition?: (newComment: string) => void 
     handleDeleteComment?: (commentId: number) => void
     setCommentToDelete?: Dispatch<SetStateAction<number>>;
+    setModalDisplayOpened?: Dispatch<SetStateAction<boolean>>;
 }
 
 interface CommentsContextProps{
@@ -25,6 +28,7 @@ export const CommentsContext = createContext<DefaultContext & FunctionalContext>
     currentUser: dataJson.currentUser,
     comments: dataJson.comments,
     commentToDelete: 0,
+    modalDisplayOpened: false,
 })
 
 
@@ -32,6 +36,7 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
     const [data, setData] = useState<CommentsData>(dataJson);
     const [incrementCommentId, setIncrementCommentId] = useState<number>(5)
     const [commentToDelete, setCommentToDelete] = useState<number>(0)
+    const [modalDisplayOpened, setModalDisplayOpened] = useState<boolean>(false)
     
     const currentUser = data.currentUser
 
@@ -121,7 +126,8 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
     
     return (
         <CommentsContext.Provider value={{currentUser,comments:data.comments,
-        handleCommentAddition,handleReplyCommentSubmit,handleEditComment,handleDeleteComment, commentToDelete,setCommentToDelete}}>
+        handleCommentAddition,handleReplyCommentSubmit,handleEditComment,handleDeleteComment, 
+        setCommentToDelete, setModalDisplayOpened,commentToDelete, modalDisplayOpened}}>
             {children}
         </CommentsContext.Provider>
     );

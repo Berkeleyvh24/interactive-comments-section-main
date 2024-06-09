@@ -1,0 +1,6 @@
+.commentList{
+    display:flex;
+    flex-direction:column;
+    height: auto !important;
+    width: 720px;
+}
