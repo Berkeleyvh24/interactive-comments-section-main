@@ -67,13 +67,10 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         setData((prevData) => {
             console.log(commentId)
             const currentReplyingToComment = fetchCommentByID(commentId, prevData.comments)
-            let editedComment;
             const initialLen = currentReplyingToComment?.content.length
             if(newComment.startsWith(currentReplyingToComment!.content)){
-                editedComment = currentReplyingToComment!.content + newComment.substring(initialLen!)
+                currentReplyingToComment!.content = currentReplyingToComment!.content + newComment.substring(initialLen!)
             }
-            currentReplyingToComment!.content = editedComment!
-
             return prevData
         })
         return false
