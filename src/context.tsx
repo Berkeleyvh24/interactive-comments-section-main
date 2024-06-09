@@ -6,14 +6,15 @@ import dataJson from "./data.json"
 interface DefaultContext{
     currentUser: User;
     comments: Comment[];
+    commentToDelete: number
 }
 
 interface FunctionalContext{
-    setReplyDisplay?: Dispatch<SetStateAction<boolean>>;
     handleReplyCommentSubmit?: (replyingTo: Comment, comment: string, user: User) => void;
-    changeScore?: (newValue: number) => void;
     handleEditComment?: (commentId: number, newComment: string) => void;
     handleCommentAddition?: (newComment: string) => void 
+    handleDeleteComment?: (commentId: number) => void
+    setCommentToDelete?: Dispatch<SetStateAction<number>>;
 }
 
 interface CommentsContextProps{
@@ -23,16 +24,18 @@ interface CommentsContextProps{
 export const CommentsContext = createContext<DefaultContext & FunctionalContext>({
     currentUser: dataJson.currentUser,
     comments: dataJson.comments,
+    commentToDelete: 0,
 })
 
 
 export function CommentContextProvider({ children }: CommentsContextProps): React.JSX.Element {
     const [data, setData] = useState<CommentsData>(dataJson);
     const [incrementCommentId, setIncrementCommentId] = useState<number>(5)
+    const [commentToDelete, setCommentToDelete] = useState<number>(0)
     
     const currentUser = data.currentUser
 
-    const createNewReply = (currentReplyingToComment: Comment, comment: string, user: User): Comment => {
+    const createNewReply = ( comment: string, user: User): Comment => {
         return {
           id: incrementCommentId, // Ensure this is a unique ID
           content: comment,
@@ -65,7 +68,6 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
 
     const handleEditComment = (commentId: number, newComment: string): boolean =>{
         setData((prevData) => {
-            console.log(commentId)
             const currentReplyingToComment = fetchCommentByID(commentId, prevData.comments)
             const initialLen = currentReplyingToComment?.content.length
             if(newComment.startsWith(currentReplyingToComment!.content)){
@@ -93,7 +95,9 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
     };
 
-
+    const handleDeleteComment = (): void => {
+        
+    }
 
     const  handleReplyCommentSubmit = (replyingTo: Comment, comment: string, user: User) => {
         setData((prevData) => {
@@ -101,7 +105,7 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
             if (!currentReplyingToComment) {
                 return prevData
             }
-            const newReply = createNewReply(currentReplyingToComment, comment, user)
+            const newReply = createNewReply( comment, user)
             if(currentReplyingToComment.replies !== undefined){
                 currentReplyingToComment.replies.push(newReply)
             }else{
@@ -117,7 +121,7 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
     
     return (
         <CommentsContext.Provider value={{currentUser,comments:data.comments,
-        handleCommentAddition,handleReplyCommentSubmit,handleEditComment}}>
+        handleCommentAddition,handleReplyCommentSubmit,handleEditComment,handleDeleteComment, commentToDelete,setCommentToDelete}}>
             {children}
         </CommentsContext.Provider>
     );
