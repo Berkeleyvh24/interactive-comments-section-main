@@ -100,8 +100,11 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
     };
 
-    const handleDeleteComment = (): void => {
-        
+    const handleDeleteComment = (commentId: number): void => {
+        setData((prevData) => {
+            console.log(commentId)
+            return prevData
+        })
     }
 
     const  handleReplyCommentSubmit = (replyingTo: Comment, comment: string, user: User) => {
