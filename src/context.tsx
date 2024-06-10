@@ -100,9 +100,30 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
     };
 
+    function removeCommentById(data: Comment[], id: number) {
+        function findAndRemove(comments: Comment[], id: number) {
+          for (let i = 0; i < comments.length; i++) {
+            if (comments[i].id === id) {
+              comments.splice(i, 1);
+              return true; // Stop searching after the comment is found and removed
+            }
+            if (comments[i].replies && comments[i].replies!.length > 0) {
+              if (findAndRemove(comments[i].replies!, id)) {
+                return true; // Stop searching if the comment in the replies is found and removed
+              }
+            }
+          }
+          return false; // Continue searching
+        }
+      
+        findAndRemove(data, id);
+      }
+
     const handleDeleteComment = (commentId: number): void => {
-        console.log(commentId, '---')
         setData((prevData) => {
+            console.log(prevData.comments, '++++');
+            const resultantComment = removeCommentById(prevData.comments, commentId);
+            console.log(prevData.comments,'====')
             return prevData
         })
     }
