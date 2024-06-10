@@ -14,7 +14,7 @@ export default function CommentComponent({
   comment,
   activeUserName,
 }: CommentComponentInterface) {
-  const { handleEditComment, setCommentToDelete, setModalDisplayOpened} = useContext(CommentsContext);
+  const { handleEditComment, setCommentToDelete, setModalDisplayOpened,handleDeleteComment} = useContext(CommentsContext);
   const [count, setCount] = useState(comment.score);
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [editText, setEditText] = useState<boolean>(false);
@@ -58,8 +58,10 @@ export default function CommentComponent({
   }
 
   const deleteCommentWithId = (): void => {
+    console.log('yooo')
     setCommentToDelete!(comment.id)
     setModalDisplayOpened!(true)
+    handleDeleteComment!()
   }
 
   return (

@@ -1,8 +1,4 @@
-body{
-  background-color: hsl(228, 33%, 97%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
+#root{
+    background-color: coral;
+    position: relative;
 }
-
