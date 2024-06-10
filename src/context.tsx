@@ -15,7 +15,7 @@ interface FunctionalContext{
     handleReplyCommentSubmit?: (replyingTo: Comment, comment: string, user: User) => void;
     handleEditComment?: (commentId: number, newComment: string) => void;
     handleCommentAddition?: (newComment: string) => void 
-    handleDeleteComment?: () => void
+    handleDeleteComment?: (commentId: number) => void
     setCommentToDelete?: Dispatch<SetStateAction<number>>;
     setModalDisplayOpened?: Dispatch<SetStateAction<boolean>>;
 }
@@ -100,7 +100,8 @@ export function CommentContextProvider({ children }: CommentsContextProps): Reac
         setIncrementCommentId((prevIncrementCommentId) => prevIncrementCommentId + 1);
     };
 
-    const handleDeleteComment = (): void => {
+    const handleDeleteComment = (commentId: number): void => {
+        console.log(commentId, '---')
         setData((prevData) => {
             return prevData
         })

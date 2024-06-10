@@ -32,11 +32,48 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px;
-    height: 150px;
+    height: 200px;
     width: 350px;
+    
 }
 
-/* .modal-card-buttons{
-    flex: 
-} */
+.modal-card-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    h1 {
+        color:var(--dark-blue);
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    p {
+        color: var(--grayish-blue);
+    }
+
+    button{
+        border: none;
+        color: white;
+        background-color: var(--soft-red);
+        padding: 14px 26px;
+        border-radius: 10px;
+        width: 250px;
+    }
+
+    button:hover{
+        cursor: pointer;
+        background-color: var(--pale-red);
+    }
+
+    button:first-child {
+        background-color: var(--dark-blue);
+    }
+}
+
+.modal-card-buttons button:first-child:hover {
+    background-color: var(--grayish-blue);
+}
 

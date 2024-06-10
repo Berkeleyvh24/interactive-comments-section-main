@@ -3,11 +3,17 @@ import { CommentsContext } from "../context";
 import "./deleteModal.css";
 
 export default function DeleteModal() {
-  const { modalDisplayOpened, setModalDisplayOpened } =
+  const { modalDisplayOpened, setModalDisplayOpened, handleDeleteComment, commentToDelete} =
     useContext(CommentsContext);
 
+    const deleteCommentWithId = (event: React.MouseEvent<HTMLButtonElement>):void => {
+      event.stopPropagation();
+      handleDeleteComment!(commentToDelete)
+      setModalDisplayOpened!(false)
+    }
+
   return (
-    <div className="modal">
+    <>
       {modalDisplayOpened && (
         <div className="modal-card">
           <div className="modal-inner-card">
@@ -20,11 +26,11 @@ export default function DeleteModal() {
               <button onClick={() => setModalDisplayOpened!(false)}>
                 NO, CANCEL
               </button>
-              <button>YES, DELETE</button>
+              <button onClick={deleteCommentWithId}>YES, DELETE</button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

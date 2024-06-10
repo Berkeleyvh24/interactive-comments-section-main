@@ -3,11 +3,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    height: 100vh;
 }
 .app-container{
-    background-color: coral;
     position: relative;
     justify-content: center;
     align-items: center;
