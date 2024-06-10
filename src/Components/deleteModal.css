@@ -1,14 +1,42 @@
+:root {
+    --dark-blue: hsl(212, 24%, 26%);
+    --grayish-blue: hsl(211, 10%, 45%);
+    --light-gray: hsl(223, 19%, 93%);
+    --very-light-gray: hsl(228, 33%, 97%);
+    --pale-red: hsl(357, 100%, 86%);
+    --light-grayish-blue: hsl(239, 57%, 85%);
+    --soft-red: hsl(358, 79%, 66%);
+    --moderate-blue: hsl(238, 40%, 52%);
+}
+
 .modal-card{
     display: flex;
-    background-color: white;
-    position: absolute;
     flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    width: 400px;
-    z-index: 1;
-    top: 50%;
+    position: fixed;
+    z-index: 100;
+    height: 100dvh;
+    width: 100dvw;
+    top: 0; 
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 }
+
+.modal-inner-card{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    height: 150px;
+    width: 350px;
+}
+
+/* .modal-card-buttons{
+    flex: 
+} */
 

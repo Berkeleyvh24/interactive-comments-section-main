@@ -1,0 +1,13 @@
+.commentList{
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.commentListSubContainer{
+    display:flex;
+    flex-direction:column;
+    height: auto !important;
+    width: 720px;
+}
