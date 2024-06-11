@@ -31,8 +31,20 @@
     align-items: center;
     justify-content: center;
     button{
+        cursor: pointer;
+        border-radius: 10px;
         border: none;
         background-color: transparent;
+        padding: 15px;
+        background-color: var(--very-light-gray);
+    }
+    span{
+        width: 100%;
+        text-align: center;
+        background-color:var(--very-light-gray);
+    }
+
+    button:first-child{
         
     }
 }
@@ -41,7 +53,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
 }
 
 .inner-comment-tags{
@@ -52,17 +64,22 @@
     gap: 10px;
 
     img{
-        width: 40px;
+        width: 30px;
     }
 
     .inner-comment-tags-text{
         display: flex;
         flex-direction: row;
-        margin-left: 10px;
         span{
-            margin: 0px 5px;
+            margin: 0px 5px;   
         }
-    }
+        #inner-comment-tags-you{
+            background-color: var(--moderate-blue);
+            padding: 0px 5px 2px 5px;
+            color: white;
+            margin-right: 15px;
+        }
+    }    
 
     .inner-comment-tags-reply:hover{
         cursor: pointer;
@@ -81,6 +98,7 @@
         }
     } */
 }
+
 
 .inner-comment-tags .inner-comment-tags-reply{
     display: flex;
@@ -104,6 +122,7 @@
     font-size: 16px;
     line-height: 1.5em;
     overflow: hidden;
+    padding-right: 35px;
 }
 
 .inner-comment-edit-delete{

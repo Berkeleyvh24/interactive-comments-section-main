@@ -89,9 +89,9 @@ export default function CommentComponent({
             <div className="inner-comment-tags-text">
               <span>{comment.user.username}</span>
               {activeUserName === comment.user.username ? (
-                <span>you</span>
+                <span id="inner-comment-tags-you">you</span>
               ) : (
-                <span>notu</span>
+                <span></span>
               )}
               <span>{comment.createdAt}</span>
             </div>
